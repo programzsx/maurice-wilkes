@@ -162,6 +162,7 @@ check_endpoint() {
 
 echo "[6/8] 后端健康检查..."
 check_endpoint "Root" "$APP_PORT" "/" "200"
+check_endpoint "DictTypes" "$APP_PORT" "/api/dict/types" "200"
 check_endpoint "DictNouns" "$APP_PORT" "/api/dict-nouns?page=1&page_size=1" "200"
 check_endpoint "Docs" "$APP_PORT" "/docs" "200"
 

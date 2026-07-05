@@ -37,7 +37,7 @@ button {
 .sidebar {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 22px;
   padding: 28px;
   color: #f7f6ef;
   background: #1f3328;
@@ -59,6 +59,58 @@ button {
 .brand p {
   margin: 4px 0 0;
   color: #b8c8ba;
+}
+
+.type-nav {
+  display: grid;
+  gap: 18px;
+}
+
+.type-nav h2 {
+  margin: 0 0 10px;
+  color: #cbd7cb;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.type-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.type-button {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  padding: 0 10px;
+  color: #e9eee4;
+  background: rgba(255, 255, 255, 0.08);
+  text-align: left;
+}
+
+.type-button:hover,
+.type-button.active {
+  border-color: #e3c15a;
+  color: #17211b;
+  background: #e3c15a;
+}
+
+.type-button strong {
+  overflow: hidden;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.type-button span {
+  color: inherit;
+  font-size: 12px;
+  opacity: 0.78;
 }
 
 .noun-form {
@@ -176,6 +228,31 @@ textarea:focus {
 
 .toolbar {
   gap: 16px;
+  align-items: flex-start;
+}
+
+.active-heading {
+  min-width: 190px;
+}
+
+.active-heading span {
+  color: #667267;
+  font-size: 13px;
+}
+
+.active-heading h2 {
+  display: grid;
+  gap: 4px;
+  margin: 4px 0 0;
+  font-size: 28px;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.active-heading small {
+  color: #667267;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .search-box {
@@ -396,6 +473,10 @@ textarea:focus {
   .toolbar {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .active-heading {
+    min-width: 0;
   }
 
   .tool-actions {

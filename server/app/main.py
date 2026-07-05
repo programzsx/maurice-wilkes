@@ -4,8 +4,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import init_db
-from app.models import DictNoun  # noqa: F401
-from app.routers import dict_nouns
+from app.models import DICT_MODELS  # noqa: F401
+from app.routers import dict_entries
 
 
 @asynccontextmanager
@@ -16,7 +16,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="Maurice Wilkes API",
-    description="名词词典系统",
+    description="十二词性词典系统",
     version="1.0.0",
     lifespan=lifespan,
 )
@@ -29,7 +29,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(dict_nouns.router)
+app.include_router(dict_entries.router)
+app.include_router(dict_entries.compat_router)
 
 
 @app.get("/")

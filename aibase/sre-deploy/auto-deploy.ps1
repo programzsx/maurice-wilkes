@@ -141,6 +141,7 @@ function Test-Endpoint($Label, $Url) {
 
 Write-Host "[6/7] Verify"
 Test-Endpoint "Root" "http://127.0.0.1:$AppPort/"
+Test-Endpoint "DictTypes" "http://127.0.0.1:$AppPort/api/dict/types"
 Test-Endpoint "DictNouns" "http://127.0.0.1:$AppPort/api/dict-nouns?page=1&page_size=1"
 Test-Endpoint "Docs" "http://127.0.0.1:$AppPort/docs"
 Test-Endpoint "Web" "http://127.0.0.1:$WebPort/"

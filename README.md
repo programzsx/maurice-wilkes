@@ -1,6 +1,6 @@
 # Maurice Wilkes
 
-名词词典应用。收集人名、物品名，以及一切可以被命名和重新认识的名词。
+十二词性词典应用。收集名词、动词、形容词、数词、量词、代词、副词、介词、连词、助词、叹词、拟声词，用数据管理重新认识语言。
 
 ## 目录
 
@@ -38,11 +38,20 @@ npm run dev
 
 ## 核心表
 
-默认部署数据库沿用参考项目可访问的 `frances-allen`，核心表为 `dict_noun`。
+默认部署数据库沿用参考项目可访问的 `frances-allen`，核心表为十二张 `dict_*` 词性表。
 
 - 基础字段：`id`、`create_time`、`update_time`
 - 统计字段：`sort_order`、`random_int`
 - 业务字段：`name`、`description`
+
+API 按词性复用同一套模式：
+
+- `GET /api/dict/types`
+- `GET /api/dict/{word_type}`
+- `GET /api/dict/{word_type}/random`
+- `POST /api/dict/{word_type}`
+- `PUT /api/dict/{word_type}/{id}`
+- `DELETE /api/dict/{word_type}/{id}`
 
 ## 部署
 
