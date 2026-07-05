@@ -1,0 +1,19 @@
+# Environment
+.env
+venv/
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Frontend build
+dist/
+coverage/
+
+# Logs
+*.log
+
+# Local artifacts
+zsx-build/
