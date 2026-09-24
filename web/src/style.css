@@ -1,6 +1,53 @@
 :root {
-  color: #17211b;
-  background: #eef1eb;
+  /* 原生控件跟随浅色 scheme，避免系统深色模式下表单/滚动条与页面割裂 */
+  color-scheme: light;
+
+  /* —— 基础色 token —— */
+  --color-bg: #eef1eb;
+  --color-surface: #fffefa;
+  --color-panel-alt: #f7f8f2;
+  --color-input-bg: #f7f6ef;
+  --color-text: #17211b;
+  --color-text-body: #2d372f;
+  --color-text-muted: #667267;
+  --color-text-gold: #8b6d16;
+
+  /* —— 强调色 —— */
+  --color-accent: #e3c15a;
+  --color-accent-ring: rgba(227, 193, 90, 0.24);
+
+  /* —— 侧栏深色系 —— */
+  --color-sidebar: #1f3328;
+  --color-on-sidebar: #f7f6ef;
+  --color-on-sidebar-muted: #b8c8ba;
+  --color-on-sidebar-heading: #cbd7cb;
+  --color-sidebar-chip: #e9eee4;
+  --color-sidebar-overlay: rgba(255, 255, 255, 0.12);
+  --color-sidebar-overlay-soft: rgba(255, 255, 255, 0.08);
+  --color-on-sidebar-line: rgba(255, 255, 255, 0.18);
+
+  /* —— 主操作绿 —— */
+  --color-primary: #2f5a48;
+  --color-on-primary: #f7f6ef;
+  --color-chip: #dfe7db;
+  --color-on-chip: #1f3328;
+
+  /* —— 状态色 —— */
+  --color-danger: #b3261e;
+  --color-danger-text: #7d1a14;
+  --color-danger-bg: #f7e3df;
+  --color-danger-icon: #8f1d1d;
+  --color-danger-icon-bg: #f3dfd9;
+
+  /* —— 边框与交互面 —— */
+  --color-border: #d7dccf;
+  --color-border-soft: #edf0e8;
+  --color-row-hover: #edf4ee;
+
+  /* —— 圆角 token —— */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+
   font-family:
     Inter, "PingFang SC", "Microsoft YaHei", system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -15,7 +62,9 @@
 body {
   margin: 0;
   min-width: 320px;
+  /* 100dvh 为主，100vh 作为不支持 dvh 的旧浏览器回退 */
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 button,
@@ -32,6 +81,7 @@ button {
   display: grid;
   grid-template-columns: minmax(300px, 360px) 1fr;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .sidebar {
@@ -39,8 +89,8 @@ button {
   flex-direction: column;
   gap: 22px;
   padding: 28px;
-  color: #f7f6ef;
-  background: #1f3328;
+  color: var(--color-on-sidebar);
+  background: var(--color-sidebar);
 }
 
 .brand {
@@ -53,12 +103,11 @@ button {
   margin: 0;
   font-size: 24px;
   line-height: 1.1;
-  letter-spacing: 0;
 }
 
 .brand p {
   margin: 4px 0 0;
-  color: #b8c8ba;
+  color: var(--color-on-sidebar-muted);
 }
 
 .type-nav {
@@ -68,7 +117,7 @@ button {
 
 .type-nav h2 {
   margin: 0 0 10px;
-  color: #cbd7cb;
+  color: var(--color-on-sidebar-heading);
   font-size: 13px;
   font-weight: 600;
 }
@@ -85,19 +134,19 @@ button {
   align-items: center;
   gap: 8px;
   min-height: 42px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 6px;
+  border: 1px solid var(--color-sidebar-overlay);
+  border-radius: var(--radius-sm);
   padding: 0 10px;
-  color: #e9eee4;
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-sidebar-chip);
+  background: var(--color-sidebar-overlay-soft);
   text-align: left;
 }
 
 .type-button:hover,
 .type-button.active {
-  border-color: #e3c15a;
-  color: #17211b;
-  background: #e3c15a;
+  border-color: var(--color-accent);
+  color: var(--color-text);
+  background: var(--color-accent);
 }
 
 .type-button strong {
@@ -140,36 +189,36 @@ button {
   font-size: 18px;
 }
 
-label {
+/* 表单控件样式收敛到 .noun-form 作用域，避免裸标签选择器外溢 */
+.noun-form label {
   display: grid;
   gap: 8px;
 }
 
-label span {
-  color: #cbd7cb;
+.noun-form label span {
+  color: var(--color-on-sidebar-heading);
   font-size: 13px;
 }
 
-input,
-textarea {
+.noun-form input,
+.noun-form textarea {
   width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 6px;
+  border: 1px solid var(--color-on-sidebar-line);
+  border-radius: var(--radius-sm);
   padding: 11px 12px;
-  color: #17211b;
-  background: #f7f6ef;
-  outline: none;
+  color: var(--color-text);
+  background: var(--color-input-bg);
 }
 
-textarea {
+.noun-form textarea {
   resize: vertical;
   min-height: 132px;
 }
 
-input:focus,
-textarea:focus {
-  border-color: #e3c15a;
-  box-shadow: 0 0 0 3px rgba(227, 193, 90, 0.24);
+.noun-form input:focus,
+.noun-form textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-ring);
 }
 
 .primary-button,
@@ -178,8 +227,9 @@ textarea:focus {
 .pager button,
 .icon-button {
   border: 0;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   min-height: 40px;
+  transition: filter 0.15s ease, opacity 0.15s ease;
 }
 
 .primary-button,
@@ -193,14 +243,29 @@ textarea:focus {
 .primary-button {
   width: 100%;
   padding: 0 16px;
-  color: #17211b;
-  background: #e3c15a;
+  color: var(--color-text);
+  background: var(--color-accent);
   font-weight: 700;
 }
 
-.primary-button:disabled,
-.icon-text-button:disabled,
-.pager button:disabled {
+.primary-button:hover:not(:disabled),
+.icon-text-button:hover:not(:disabled),
+.search-box button:hover:not(:disabled),
+.pager button:hover:not(:disabled),
+.icon-button:hover:not(:disabled) {
+  filter: brightness(1.06);
+}
+
+.primary-button:active:not(:disabled),
+.icon-text-button:active:not(:disabled),
+.search-box button:active:not(:disabled),
+.pager button:active:not(:disabled),
+.icon-button:active:not(:disabled) {
+  filter: brightness(0.96);
+}
+
+/* 统一禁用态：新增按钮类型无需再枚举 */
+button:disabled {
   cursor: not-allowed;
   opacity: 0.55;
 }
@@ -210,12 +275,12 @@ textarea:focus {
   place-items: center;
   width: 40px;
   color: inherit;
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--color-sidebar-overlay);
 }
 
 .icon-button.danger {
-  color: #8f1d1d;
-  background: #f3dfd9;
+  color: var(--color-danger-icon);
+  background: var(--color-danger-icon-bg);
 }
 
 .content {
@@ -223,7 +288,8 @@ textarea:focus {
   flex-direction: column;
   gap: 18px;
   padding: 28px;
-  overflow: hidden;
+  /* grid 列内防止子内容撑破列宽（取代原先裁剪式的 overflow: hidden） */
+  min-width: 0;
 }
 
 .toolbar {
@@ -236,7 +302,7 @@ textarea:focus {
 }
 
 .active-heading span {
-  color: #667267;
+  color: var(--color-text-muted);
   font-size: 13px;
 }
 
@@ -246,11 +312,10 @@ textarea:focus {
   margin: 4px 0 0;
   font-size: 28px;
   line-height: 1.05;
-  letter-spacing: 0;
 }
 
 .active-heading small {
-  color: #667267;
+  color: var(--color-text-muted);
   font-size: 13px;
   font-weight: 500;
 }
@@ -262,23 +327,25 @@ textarea:focus {
   gap: 10px;
   width: min(640px, 100%);
   padding: 8px 8px 8px 12px;
-  border: 1px solid #d7dccf;
-  border-radius: 8px;
-  background: #fffefa;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
 }
 
+/* 独立声明搜索输入所需的最小属性集，不再依赖对全局 input 的覆盖 */
 .search-box input {
+  width: 100%;
+  min-width: 0;
   border: 0;
   padding: 8px 0;
   background: transparent;
-  box-shadow: none;
 }
 
 .search-box button,
 .pager button {
   padding: 0 14px;
-  color: #f7f6ef;
-  background: #2f5a48;
+  color: var(--color-on-primary);
+  background: var(--color-primary);
 }
 
 .tool-actions {
@@ -287,30 +354,32 @@ textarea:focus {
 
 .icon-text-button {
   padding: 0 14px;
-  color: #1f3328;
-  background: #dfe7db;
+  color: var(--color-on-chip);
+  background: var(--color-chip);
 }
 
 .error-line {
-  border-left: 4px solid #b3261e;
+  border-left: 4px solid var(--color-danger);
   padding: 10px 12px;
-  color: #7d1a14;
-  background: #f7e3df;
+  color: var(--color-danger-text);
+  background: var(--color-danger-bg);
 }
 
 .workspace {
   display: grid;
   grid-template-columns: minmax(300px, 420px) minmax(0, 1fr);
   gap: 18px;
+  /* 占满 .content 剩余高度，面板高度随之自适应，
+     取代原先 min-height: calc(100vh - 116px) 的脆弱假设 */
+  flex: 1;
   min-height: 0;
 }
 
 .noun-list,
 .detail-panel {
-  min-height: calc(100vh - 116px);
-  border: 1px solid #d7dccf;
-  border-radius: 8px;
-  background: #fffefa;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
 }
 
 .noun-list {
@@ -331,7 +400,7 @@ textarea:focus {
 }
 
 .list-meta span {
-  color: #667267;
+  color: var(--color-text-muted);
 }
 
 .noun-row {
@@ -339,35 +408,41 @@ textarea:focus {
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 12px;
   padding: 14px 18px;
-  border-top: 1px solid #edf0e8;
+  border-top: 1px solid var(--color-border-soft);
   cursor: pointer;
 }
 
 .noun-row:hover,
 .noun-row.active {
-  background: #edf4ee;
+  background: var(--color-row-hover);
+}
+
+.noun-row:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
 }
 
 .noun-row h3 {
   margin: 0 0 6px;
   font-size: 17px;
-  letter-spacing: 0;
 }
 
+/* 两行截断：-webkit 私有实现 + 标准 line-clamp（Chromium/Safari 已支持标准形式） */
 .noun-row p {
   display: -webkit-box;
   margin: 0;
   overflow: hidden;
-  color: #667267;
+  color: var(--color-text-muted);
   font-size: 14px;
   line-height: 1.5;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .noun-row span {
   min-width: 36px;
-  color: #8b6d16;
+  color: var(--color-text-gold);
   text-align: right;
 }
 
@@ -375,11 +450,11 @@ textarea:focus {
   gap: 12px;
   margin-top: auto;
   padding: 14px 18px;
-  border-top: 1px solid #edf0e8;
+  border-top: 1px solid var(--color-border-soft);
 }
 
 .pager span {
-  color: #667267;
+  color: var(--color-text-muted);
 }
 
 .detail-panel {
@@ -393,14 +468,13 @@ textarea:focus {
 
 .detail-top p {
   margin: 0 0 8px;
-  color: #8b6d16;
+  color: var(--color-text-gold);
 }
 
 .detail-top h2 {
   margin: 0;
   font-size: clamp(28px, 5vw, 56px);
   line-height: 1.02;
-  letter-spacing: 0;
   overflow-wrap: anywhere;
 }
 
@@ -411,14 +485,16 @@ textarea:focus {
 }
 
 .detail-actions .icon-button {
-  color: #1f3328;
-  background: #e9eee4;
+  color: var(--color-on-chip);
+  background: var(--color-sidebar-chip);
 }
 
 .description {
   margin: 28px 0;
+  /* 超宽屏下限制每行长度，保证长描述可读性 */
+  max-width: 72ch;
   white-space: pre-wrap;
-  color: #2d372f;
+  color: var(--color-text-body);
   font-size: 18px;
   line-height: 1.75;
 }
@@ -433,14 +509,14 @@ textarea:focus {
 .field-grid div {
   min-width: 0;
   padding: 14px;
-  border: 1px solid #edf0e8;
-  border-radius: 8px;
-  background: #f7f8f2;
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-md);
+  background: var(--color-panel-alt);
 }
 
 .field-grid dt {
   margin-bottom: 8px;
-  color: #667267;
+  color: var(--color-text-muted);
   font-size: 13px;
 }
 
@@ -453,7 +529,33 @@ textarea:focus {
   display: grid;
   place-items: center;
   min-height: 220px;
-  color: #667267;
+  color: var(--color-text-muted);
+}
+
+/* 加载态：在空状态布局上叠加旋转指示，便于与"没有数据"区分 */
+.empty-state.is-loading::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  margin-bottom: 10px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-text-muted);
+  border-radius: 50%;
+  animation: noun-loading 0.8s linear infinite;
+}
+
+@keyframes noun-loading {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 键盘可达性：统一的可见焦点环 */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 @media (max-width: 960px) {
@@ -487,9 +589,9 @@ textarea:focus {
     flex: 1;
   }
 
-  .noun-list,
-  .detail-panel {
-    min-height: auto;
+  /* 单列布局下不再拉伸占满视口高度 */
+  .workspace {
+    flex: none;
   }
 }
 

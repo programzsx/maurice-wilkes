@@ -198,6 +198,13 @@ function App() {
     }
   }
 
+  function handleRowKeyDown(event, itemId) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      setSelectedId(itemId);
+    }
+  }
+
   function search(event) {
     event.preventDefault();
     setQuery(draftQuery);
@@ -247,8 +254,14 @@ function App() {
           <div className="form-head">
             <h2>{editingId ? `编辑${activeType.zh}` : `新建${activeType.zh}`}</h2>
             {editingId && (
-              <button type="button" className="icon-button" onClick={resetForm} title="取消编辑">
-                <X size={18} />
+              <button
+                type="button"
+                className="icon-button"
+                onClick={resetForm}
+                title="取消编辑"
+                aria-label="取消编辑"
+              >
+                <X size={18} aria-hidden="true" />
               </button>
             )}
           </div>
@@ -302,6 +315,8 @@ function App() {
           <form className="search-box" onSubmit={search}>
             <Search size={18} aria-hidden="true" />
             <input
+              type="search"
+              aria-label={`搜索${activeType.zh}或描述`}
               value={draftQuery}
               onChange={(event) => setDraftQuery(event.target.value)}
               placeholder={`搜索${activeType.zh}或描述`}
@@ -321,7 +336,11 @@ function App() {
           </div>
         </header>
 
-        {error && <div className="error-line">{error}</div>}
+        {error && (
+          <div className="error-line" role="alert">
+            {error}
+          </div>
+        )}
 
         <div className="workspace">
           <section className="noun-list" aria-label="词条列表">
@@ -331,7 +350,7 @@ function App() {
             </div>
 
             {loading ? (
-              <div className="empty-state">加载中</div>
+              <div className="empty-state is-loading">加载中</div>
             ) : items.length === 0 ? (
               <div className="empty-state">还没有{activeType.zh}</div>
             ) : (
@@ -339,7 +358,11 @@ function App() {
                 <article
                   className={`noun-row ${selected?.id === item.id ? 'active' : ''}`}
                   key={item.id}
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={selected?.id === item.id}
                   onClick={() => setSelectedId(item.id)}
+                  onKeyDown={(event) => handleRowKeyDown(event, item.id)}
                 >
                   <div>
                     <h3>{item.name}</h3>
@@ -374,11 +397,21 @@ function App() {
                     <h2>{selected.name}</h2>
                   </div>
                   <div className="detail-actions">
-                    <button className="icon-button" onClick={() => startEdit(selected)} title="编辑">
-                      <Edit3 size={18} />
+                    <button
+                      className="icon-button"
+                      onClick={() => startEdit(selected)}
+                      title="编辑"
+                      aria-label={`编辑${selected.name}`}
+                    >
+                      <Edit3 size={18} aria-hidden="true" />
                     </button>
-                    <button className="icon-button danger" onClick={() => removeItem(selected)} title="删除">
-                      <Trash2 size={18} />
+                    <button
+                      className="icon-button danger"
+                      onClick={() => removeItem(selected)}
+                      title="删除"
+                      aria-label={`删除${selected.name}`}
+                    >
+                      <Trash2 size={18} aria-hidden="true" />
                     </button>
                   </div>
                 </div>
